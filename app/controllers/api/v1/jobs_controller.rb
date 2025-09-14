@@ -16,7 +16,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     end
     
     if params[:search].present?
-      @jobs = @jobs.where('title ILIKE ? OR description ILIKE ?', 
+      @jobs = @jobs.where('title LIKE ? OR description LIKE ?', 
                          "%#{params[:search]}%", "%#{params[:search]}%")
     end
 

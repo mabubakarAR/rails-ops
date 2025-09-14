@@ -5,7 +5,7 @@ class JobSeekersController < ApplicationController
 
   def index
     @job_seekers = JobSeeker.includes(:user, :job_applications)
-    @job_seekers = @job_seekers.where("first_name ILIKE ? OR last_name ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
+    @job_seekers = @job_seekers.where("first_name LIKE ? OR last_name LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
     @job_seekers = @job_seekers.limit(20)
   end
 

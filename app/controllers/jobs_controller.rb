@@ -12,7 +12,7 @@ class JobsController < ApplicationController
     @jobs = @jobs.recent if params[:sort] == 'recent'
     
     if params[:search].present?
-      @jobs = @jobs.where('title ILIKE ? OR description ILIKE ?', 
+      @jobs = @jobs.where('title LIKE ? OR description LIKE ?', 
                          "%#{params[:search]}%", "%#{params[:search]}%")
     end
 

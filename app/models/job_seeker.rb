@@ -12,7 +12,7 @@ class JobSeeker < ApplicationRecord
   validates :bio, length: { maximum: 1000 }, allow_blank: true
   validates :experience_years, numericality: { greater_than_or_equal_to: 0, less_than: 100 }, allow_blank: true
 
-  scope :by_location, ->(location) { where("location ILIKE ?", "%#{location}%") }
+  scope :by_location, ->(location) { where("location LIKE ?", "%#{location}%") }
   scope :by_experience, ->(min_years) { where("experience_years >= ?", min_years) }
   scope :with_skills, ->(skill_ids) { joins(:skills).where(skills: { id: skill_ids }).distinct }
 

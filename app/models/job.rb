@@ -32,7 +32,7 @@ class Job < ApplicationRecord
   }
 
   scope :active, -> { where(status: 'active') }
-  scope :by_location, ->(location) { where("location ILIKE ?", "%#{location}%") }
+  scope :by_location, ->(location) { where("location LIKE ?", "%#{location}%") }
   scope :by_employment_type, ->(type) { where(employment_type: type) }
   scope :by_salary_range, ->(min, max) { where(salary_min: min..max) }
   scope :remote, -> { where(remote: true) }

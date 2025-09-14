@@ -26,7 +26,7 @@ class Api::V1::SearchController < Api::V1::BaseController
     companies = Company.includes(:user, :jobs)
     
     if query.present?
-      companies = companies.where("name ILIKE ? OR description ILIKE ?", 
+      companies = companies.where("name LIKE ? OR description LIKE ?", 
                                  "%#{query}%", "%#{query}%")
     end
     
@@ -55,7 +55,7 @@ class Api::V1::SearchController < Api::V1::BaseController
     job_seekers = JobSeeker.includes(:user, :skills)
     
     if query.present?
-      job_seekers = job_seekers.where("first_name ILIKE ? OR last_name ILIKE ? OR bio ILIKE ?", 
+      job_seekers = job_seekers.where("first_name LIKE ? OR last_name LIKE ? OR bio LIKE ?", 
                                     "%#{query}%", "%#{query}%", "%#{query}%")
     end
     

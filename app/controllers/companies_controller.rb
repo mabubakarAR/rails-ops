@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = Company.includes(:user, :jobs)
-    @companies = @companies.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
+    @companies = @companies.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
     @companies = @companies.limit(20)
   end
 

@@ -13,6 +13,6 @@ class Skill < ApplicationRecord
   end
 
   def self.search(query)
-    where("name ILIKE ?", "%#{query}%")
+    where("name LIKE ?", "%#{query}%")
   end
 end
