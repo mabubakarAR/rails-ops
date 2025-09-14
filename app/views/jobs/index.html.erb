@@ -1,66 +1,105 @@
-<div class="row">
-  <div class="col-md-8">
-    <h1>Job Listings</h1>
-    
-    <div class="mb-4">
-      <%= form_with url: jobs_path, method: :get, local: true, class: "row g-3" do |form| %>
-        <div class="col-md-4">
-          <%= form.text_field :search, placeholder: "Search jobs...", class: "form-control", value: params[:search] %>
-        </div>
-        <div class="col-md-3">
-          <%= form.select :location, options_for_select([["All Locations", ""], ["Remote", "Remote"], ["New York", "New York"], ["San Francisco", "San Francisco"], ["London", "London"]], params[:location]), {}, { class: "form-select" } %>
-        </div>
-        <div class="col-md-3">
-          <%= form.select :employment_type, options_for_select([["All Types", ""], ["Full Time", "full_time"], ["Part Time", "part_time"], ["Contract", "contract"], ["Freelance", "freelance"]], params[:employment_type]), {}, { class: "form-select" } %>
-        </div>
-        <div class="col-md-2">
-          <%= form.submit "Search", class: "btn btn-primary w-100" %>
-        </div>
-      <% end %>
-    </div>
-
-    <div id="jobs">
-      <% @jobs.each do |job| %>
-        <%= render 'job', job: job %>
-      <% end %>
-    </div>
-
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @jobs %>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-        <h5>Quick Actions</h5>
-      </div>
-      <div class="card-body">
-        <% if user_signed_in? && current_user.company? %>
-          <%= link_to "Post New Job", new_job_path, class: "btn btn-success w-100 mb-2" %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Job Listings</h1>
+        <% if current_user.company? %>
+          <%= link_to "Post New Job", new_job_path, class: "btn btn-primary" %>
         <% end %>
-        
-        <div class="form-check">
-          <%= check_box_tag :active_only, "true", params[:active_only] == "true", 
-              class: "form-check-input", 
-              data: { 
-                turbo_method: :get,
-                turbo_action: "advance",
-                url: jobs_path(active_only: "true")
-              } %>
-          <%= label_tag :active_only, "Show only active jobs", class: "form-check-label" %>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= form_with url: jobs_path, method: :get, local: true, class: "row g-3" do |form| %>
+            <div class="col-md-4">
+              <%= form.text_field :search, placeholder: "Search jobs...", class: "form-control", value: params[:search] %>
+            </div>
+            <div class="col-md-3">
+              <%= form.select :location, options_for_select([
+                ['All Locations', ''],
+                ['San Francisco, CA', 'San Francisco'],
+                ['New York, NY', 'New York'],
+                ['Remote', 'Remote']
+              ], params[:location]), {}, { class: "form-select" } %>
+            </div>
+            <div class="col-md-3">
+              <%= form.select :employment_type, options_for_select([
+                ['All Types', ''],
+                ['Full Time', 'full_time'],
+                ['Part Time', 'part_time'],
+                ['Contract', 'contract'],
+                ['Freelance', 'freelance'],
+                ['Internship', 'internship']
+              ], params[:employment_type]), {}, { class: "form-select" } %>
+            </div>
+            <div class="col-md-2">
+              <%= form.submit "Search", class: "btn btn-outline-primary w-100" %>
+            </div>
+          <% end %>
         </div>
-        
-        <div class="form-check">
-          <%= check_box_tag :remote, "true", params[:remote] == "true", 
-              class: "form-check-input", 
-              data: { 
-                turbo_method: :get,
-                turbo_action: "advance",
-                url: jobs_path(remote: "true")
-              } %>
-          <%= label_tag :remote, "Remote jobs only", class: "form-check-label" %>
-        </div>
+      </div>
+
+      <!-- Jobs List -->
+      <div id="jobs">
+        <% if @jobs.any? %>
+          <div class="row">
+            <% @jobs.each do |job| %>
+              <div class="col-md-6 col-lg-4 mb-4" id="job_<%= job.id %>">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                      <% if job.company&.logo_url.present? %>
+                        <img src="<%= job.company.logo_url %>" alt="<%= job.company.name %>" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      <% else %>
+                        <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                          <i class="fas fa-building"></i>
+                        </div>
+                      <% end %>
+                      <div>
+                        <h6 class="fw-bold mb-0"><%= job.company&.name %></h6>
+                        <small class="text-muted"><%= job.location %></small>
+                      </div>
+                    </div>
+                    
+                    <h5 class="card-title fw-bold"><%= job.title %></h5>
+                    <p class="card-text text-muted"><%= truncate(job.description, length: 120) %></p>
+                    
+                    <div class="mb-3">
+                      <% if job.salary_min && job.salary_max %>
+                        <span class="badge bg-success me-2">$<%= number_with_delimiter(job.salary_min) %> - $<%= number_with_delimiter(job.salary_max) %></span>
+                      <% end %>
+                      <% if job.remote %>
+                        <span class="badge bg-info me-2">Remote</span>
+                      <% end %>
+                      <span class="badge bg-secondary"><%= job.employment_type.humanize %></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted"><%= time_ago_in_words(job.created_at) %> ago</small>
+                      <div>
+                        <% if current_user.job_seeker? %>
+                          <% if job.can_apply?(current_user.job_seeker) %>
+                            <%= link_to "Apply", new_job_application_path(job), class: "btn btn-primary btn-sm" %>
+                          <% else %>
+                            <span class="text-muted">Already Applied</span>
+                          <% end %>
+                        <% end %>
+                        <%= link_to "View", job_path(job), class: "btn btn-outline-primary btn-sm" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-5">
+            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No jobs found</h3>
+            <p class="text-muted">Try adjusting your search criteria or check back later for new opportunities.</p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

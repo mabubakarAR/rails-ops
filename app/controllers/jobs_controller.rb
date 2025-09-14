@@ -17,7 +17,7 @@ class JobsController < ApplicationController
                          "%#{params[:search]}%", "%#{params[:search]}%")
     end
 
-    @jobs = @jobs.page(params[:page]).per(20)
+    @jobs = @jobs.limit(20)
   end
 
   def show
