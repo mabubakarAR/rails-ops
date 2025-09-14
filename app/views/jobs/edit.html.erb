@@ -1,2 +1,119 @@
-<h1>Jobs#edit</h1>
-<p>Find me in app/views/jobs/edit.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Edit Job Posting</h2>
+            <p class="text-muted">Update your job details</p>
+          </div>
+
+          <%= form_with model: @job, local: true, html: { class: "needs-validation", novalidate: true } do |form| %>
+            <% if @job.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <%= pluralize(@job.errors.count, "error") %> prohibited this job from being updated:
+                <ul class="mb-0 mt-2">
+                  <% @job.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :title, class: "form-label fw-semibold" %>
+              <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "e.g. Senior Ruby Developer", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label fw-semibold" %>
+              <%= form.text_area :description, class: "form-control", rows: 6, placeholder: "Describe the role, responsibilities, and what you're looking for...", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :requirements, class: "form-label fw-semibold" %>
+              <%= form.text_area :requirements, class: "form-control", rows: 4, placeholder: "List the required skills, experience, and qualifications..." %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :benefits, class: "form-label fw-semibold" %>
+              <%= form.text_area :benefits, class: "form-control", rows: 3, placeholder: "Health insurance, flexible hours, remote work, etc..." %>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :location, class: "form-label fw-semibold" %>
+                <%= form.text_field :location, class: "form-control", placeholder: "e.g. San Francisco, CA or Remote", required: true %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :employment_type, class: "form-label fw-semibold" %>
+                <%= form.select :employment_type, options_for_select([
+                  ['Full Time', 'full_time'],
+                  ['Part Time', 'part_time'],
+                  ['Contract', 'contract'],
+                  ['Freelance', 'freelance'],
+                  ['Internship', 'internship']
+                ], @job.employment_type), { prompt: 'Select Employment Type' }, { class: "form-select", required: true } %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :salary_min, class: "form-label fw-semibold" %>
+                <%= form.number_field :salary_min, class: "form-control", placeholder: "50000", min: 0, step: 1000 %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :salary_max, class: "form-label fw-semibold" %>
+                <%= form.number_field :salary_max, class: "form-control", placeholder: "80000", min: 0, step: 1000 %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :status, class: "form-label fw-semibold" %>
+                <%= form.select :status, options_for_select([
+                  ['Draft', 'draft'],
+                  ['Active', 'active'],
+                  ['Paused', 'paused'],
+                  ['Closed', 'closed']
+                ], @job.status), {}, { class: "form-select" } %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-check mt-4">
+                  <%= form.check_box :remote, class: "form-check-input" %>
+                  <%= form.label :remote, "This is a remote position", class: "form-check-label fw-semibold" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit "Update Job", class: "btn btn-primary btn-lg fw-semibold" %>
+              <%= link_to "Cancel", @job, class: "btn btn-outline-secondary btn-lg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Bootstrap form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
