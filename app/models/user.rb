@@ -12,9 +12,9 @@ class User < ApplicationRecord
 
   def full_name
     if job_seeker?
-      "#{job_seeker.first_name} #{job_seeker.last_name}"
+      job_seeker&.full_name || email
     elsif company?
-      company.name
+      company&.name || email
     else
       email
     end
