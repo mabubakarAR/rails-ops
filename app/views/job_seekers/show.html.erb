@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Your Profile</h2>
+            <p class="text-muted">Welcome, <%= @job_seeker.full_name %></p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <strong>First Name:</strong>
+              <p class="text-muted"><%= @job_seeker.first_name %></p>
+            </div>
+            <div class="col-md-6 mb-3">
+              <strong>Last Name:</strong>
+              <p class="text-muted"><%= @job_seeker.last_name %></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <strong>Phone:</strong>
+              <p class="text-muted"><%= @job_seeker.phone.present? ? @job_seeker.phone : 'Not provided' %></p>
+            </div>
+            <div class="col-md-6 mb-3">
+              <strong>Location:</strong>
+              <p class="text-muted"><%= @job_seeker.location %></p>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <strong>Bio:</strong>
+            <p class="text-muted"><%= @job_seeker.bio.present? ? @job_seeker.bio : 'Not provided' %></p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <strong>Experience:</strong>
+              <p class="text-muted">
+                <%= @job_seeker.experience_years.present? ? "#{@job_seeker.experience_years} years" : 'Not specified' %>
+              </p>
+            </div>
+            <div class="col-md-6 mb-3">
+              <strong>Resume:</strong>
+              <p class="text-muted">
+                <% if @job_seeker.resume.present? %>
+                  <%= link_to "View Resume", @job_seeker.resume, target: "_blank", class: "btn btn-outline-primary btn-sm" %>
+                <% else %>
+                  Not provided
+                <% end %>
+              </p>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= link_to "Edit Profile", edit_job_seeker_path(@job_seeker), class: "btn btn-primary btn-lg fw-semibold" %>
+            <%= link_to "Browse Jobs", jobs_path, class: "btn btn-outline-primary btn-lg" %>
+            <%= link_to "My Applications", job_applications_path, class: "btn btn-outline-secondary btn-lg" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

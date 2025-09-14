@@ -1,0 +1,12 @@
+HTTP/1.1 204 No Content
+x-frame-options: SAMEORIGIN
+x-xss-protection: 0
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+cache-control: no-cache
+set-cookie: _rails_ops_session=SkSPKuNQfMR7Qas1OazQb1pYhPDF2Almd%2BlwFbpXAdvs3HYUZJxek1LezvGsKRUCWp0PHwxBQazP7fFPBbqsZbQQ3gN4IPwugoKYvxye%2FZtXGJQTi3zo7q4ituBU9uYxaYKDN5kmgdpHvgdjN2O60P8TJP%2F55hTHR1c9r0u77gyo%2BizgnA6QkLVbjbPIK4HDMKd%2BU1czqVGM%2B1ybeADeqEvBu1W66DxH7b5KAeepWaRcZdrAkTWgJSyt3HVPdj7gDQkQhYCskhfh%2Fn98g7fhTmD0TiZBXD7f7%2BVOPn55474m%2FqpvN9s%3D--PflEBmX0mPqZiyhH--aJnFBPRR2WR%2FAmFucFFtHw%3D%3D; path=/; httponly; samesite=lax
+x-request-id: 07ad58b7-ec54-4b12-a304-43b97baa4358
+x-runtime: 0.173335
+server-timing: start_processing.action_controller;dur=0.01, halted_callback.action_controller;dur=0.00, process_action.action_controller;dur=0.75
+

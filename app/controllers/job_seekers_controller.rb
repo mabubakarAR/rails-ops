@@ -21,7 +21,7 @@ class JobSeekersController < ApplicationController
     
     respond_to do |format|
       if @job_seeker.save
-        format.html { redirect_to @job_seeker, notice: 'Profile was successfully created.' }
+        format.html { redirect_to jobs_path, notice: 'Profile was successfully created.' }
         format.turbo_stream { render turbo_stream: turbo_stream.prepend('job_seekers', partial: 'job_seekers/job_seeker', locals: { job_seeker: @job_seeker }) }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +36,7 @@ class JobSeekersController < ApplicationController
   def update
     respond_to do |format|
       if @job_seeker.update(job_seeker_params)
-        format.html { redirect_to @job_seeker, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to jobs_path, notice: 'Profile was successfully updated.' }
         format.turbo_stream { render turbo_stream: turbo_stream.replace("job_seeker_#{@job_seeker.id}", partial: 'job_seekers/job_seeker', locals: { job_seeker: @job_seeker }) }
       else
         format.html { render :edit, status: :unprocessable_entity }
