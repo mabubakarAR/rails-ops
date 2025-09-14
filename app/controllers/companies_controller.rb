@@ -21,7 +21,7 @@ class CompaniesController < ApplicationController
     
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.html { redirect_to jobs_path, notice: 'Company profile was successfully created. You can now post jobs!' }
         format.turbo_stream { render turbo_stream: turbo_stream.prepend('companies', partial: 'companies/company', locals: { company: @company }) }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +36,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to @company, notice: 'Company was successfully updated.' }
+        format.html { redirect_to @company, notice: 'Company profile was successfully updated.' }
         format.turbo_stream { render turbo_stream: turbo_stream.replace("company_#{@company.id}", partial: 'companies/company', locals: { company: @company }) }
       else
         format.html { render :edit, status: :unprocessable_entity }
