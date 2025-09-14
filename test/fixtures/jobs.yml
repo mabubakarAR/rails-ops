@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  requirements: MyText
+  benefits: MyText
+  location: MyString
+  salary_min: 9.99
+  salary_max: 9.99
+  employment_type: MyString
+  remote: false
+  status: MyString
+  company: one
+
+two:
+  title: MyString
+  description: MyText
+  requirements: MyText
+  benefits: MyText
+  location: MyString
+  salary_min: 9.99
+  salary_max: 9.99
+  employment_type: MyString
+  remote: false
+  status: MyString
+  company: two

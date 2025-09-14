@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Application Status Update</title>
+  </head>
+  <body>
+    <h2>Application Status Update</h2>
+    
+    <p>Hello <%= @job_seeker.full_name %>,</p>
+    
+    <p>Your application for the position <strong><%= @job.title %></strong> at <strong><%= @company.name %></strong> has been updated.</p>
+    
+    <h3>Application Details:</h3>
+    <ul>
+      <li><strong>Position:</strong> <%= @job.title %></li>
+      <li><strong>Company:</strong> <%= @company.name %></li>
+      <li><strong>Location:</strong> <%= @job.location %></li>
+      <li><strong>Status:</strong> <span style="color: <%= status_color(@job_application.status) %>"><%= @job_application.status.humanize %></span></li>
+      <li><strong>Updated:</strong> <%= @job_application.updated_at.strftime("%B %d, %Y at %I:%M %p") %></li>
+    </ul>
+    
+    <% if @job_application.status == 'accepted' %>
+      <div style="background-color: #d4edda; border: 1px solid #c3e6cb; padding: 15px; margin: 10px 0;">
+        <h3>Congratulations!</h3>
+        <p>Your application has been accepted! The company will contact you soon with next steps.</p>
+      </div>
+    <% elsif @job_application.status == 'rejected' %>
+      <div style="background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; margin: 10px 0;">
+        <p>Unfortunately, your application was not selected for this position. Don't give up - keep applying to other opportunities!</p>
+      </div>
+    <% end %>
+    
+    <p>You can view all your applications by logging into your account.</p>
+    
+    <p>Best regards,<br>
+    RailsOps Job Portal Team</p>
+  </body>
+</html>
+
+<% 
+def status_color(status)
+  case status
+  when 'accepted'
+    '#28a745'
+  when 'rejected'
+    '#dc3545'
+  when 'shortlisted'
+    '#17a2b8'
+  when 'interviewed'
+    '#ffc107'
+  else
+    '#6c757d'
+  end
+end
+%>

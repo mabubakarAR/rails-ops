@@ -6,6 +6,8 @@ gem "rails", "~> 7.2.1"
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
+# Use sqlite3 for development and test
+gem "sqlite3", "~> 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -17,13 +19,66 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
+gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
+
+# Authentication
+gem "devise"
+gem "pundit"
+
+# Background Jobs
+gem "sidekiq"
+gem "sidekiq-cron"
+
+# Email
+gem "mailgun-ruby"
+
+# SMS
+gem "twilio-ruby"
+
+# Search
+gem "elasticsearch-model"
+gem "elasticsearch-rails"
+
+# Admin Panel
+gem "activeadmin"
+
+# API Documentation
+gem "rswag"
+gem "rswag-api"
+gem "rswag-ui"
+
+# File Upload
+gem "image_processing", "~> 1.2"
+
+# Pagination
+gem "kaminari"
+
+# Serialization
+gem "active_model_serializers"
+
+# CORS
+gem "rack-cors"
+
+# Environment variables
+gem "dotenv-rails"
+
+# Pagy for better pagination
+gem "pagy"
+
+# Money handling
+gem "money-rails"
+
+# Geocoding
+gem "geocoder"
+
+# Background job monitoring (will add later)
+# gem "sidekiq-web"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
@@ -57,4 +112,13 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  
+  # Testing framework
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "shoulda-matchers"
+  gem "database_cleaner-active_record"
+  gem "webmock"
+  gem "vcr"
 end
