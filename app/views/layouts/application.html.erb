@@ -27,41 +27,78 @@
 
   <body>
     <% unless controller_name == 'sessions' || controller_name == 'registrations' %>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-          <%= link_to "RailsOps", root_path, class: "navbar-brand" %>
+          <%= link_to "RailsOps", root_path, class: "navbar-brand fw-bold fs-4" %>
           
-          <div class="navbar-nav ms-auto">
-            <% if user_signed_in? %>
-              <span class="navbar-text me-3">
-                Welcome, <%= current_user.full_name %>
-              </span>
-              <%= link_to "Jobs", jobs_path, class: "nav-link" %>
-              <% if current_user.company? %>
-                <% if current_user.company.present? %>
-                  <%= link_to "My Jobs", jobs_path, class: "nav-link" %>
-                  <%= link_to "My Applications", job_applications_path, class: "nav-link" %>
-                <% else %>
-                  <%= link_to "Create Company Profile", new_company_path, class: "nav-link" %>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+              <% if user_signed_in? %>
+                <!-- User Info -->
+                <li class="nav-item me-3">
+                  <div class="d-flex align-items-center">
+                    <div class="bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
+                      <i class="fas fa-user text-white"></i>
+                    </div>
+                    <span class="navbar-text text-white fw-medium">
+                      Welcome, <%= current_user.full_name %>
+                    </span>
+                  </div>
+                </li>
+                
+                <!-- Navigation Links -->
+                <li class="nav-item">
+                  <%= link_to "Jobs", jobs_path, class: "nav-link fw-medium" %>
+                </li>
+                
+                <% if current_user.company? %>
+                  <% if current_user.company.present? %>
+                    <li class="nav-item">
+                      <%= link_to "My Jobs", jobs_path, class: "nav-link fw-medium" %>
+                    </li>
+                    <li class="nav-item">
+                      <%= link_to "My Applications", job_applications_path, class: "nav-link fw-medium" %>
+                    </li>
+                  <% else %>
+                    <li class="nav-item">
+                      <%= link_to "Create Company Profile", new_company_path, class: "nav-link fw-medium" %>
+                    </li>
+                  <% end %>
+                <% elsif current_user.job_seeker? %>
+                  <% if current_user.job_seeker.present? %>
+                    <li class="nav-item">
+                      <%= link_to "My Applications", job_applications_path, class: "nav-link fw-medium" %>
+                    </li>
+                  <% else %>
+                    <li class="nav-item">
+                      <%= link_to "Create Profile", new_job_seeker_path, class: "nav-link fw-medium" %>
+                    </li>
+                  <% end %>
                 <% end %>
-              <% elsif current_user.job_seeker? %>
-                <% if current_user.job_seeker.present? %>
-                  <%= link_to "My Applications", job_applications_path, class: "nav-link" %>
-                <% else %>
-                  <%= link_to "Create Profile", new_job_seeker_path, class: "nav-link" %>
-                <% end %>
+                
+                <!-- Logout Button -->
+                <li class="nav-item">
+                  <form action="<%= destroy_user_session_path %>" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <button type="submit" class="nav-link btn btn-link text-decoration-none border-0 bg-transparent fw-medium" style="color: rgba(255,255,255,.8);">
+                      <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    </button>
+                  </form>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "Login", new_user_session_path, class: "nav-link fw-medium" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Sign Up", new_user_registration_path, class: "nav-link fw-medium" %>
+                </li>
               <% end %>
-              <li class="nav-item">
-                <form action="<%= destroy_user_session_path %>" method="post" style="display: inline;">
-                  <input type="hidden" name="_method" value="delete">
-                  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                  <button type="submit" class="nav-link btn btn-link text-decoration-none p-0 border-0 bg-transparent" style="color: rgba(255,255,255,.55);">Logout</button>
-                </form>
-              </li>
-            <% else %>
-              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-              <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
-            <% end %>
+            </ul>
           </div>
         </div>
       </nav>
