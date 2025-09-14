@@ -1,7 +1,6 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_job, only: [:edit, :update, :destroy]
 
   def index
     @jobs = Job.includes(:company, :categories, :job_applications)
@@ -25,21 +24,29 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = current_user.company.jobs.build
+    if current_user.company?
+      @job = current_user.company.jobs.build
+    else
+      redirect_to new_company_path, alert: 'Please create a company profile first.'
+    end
   end
 
   def create
-    @job = current_user.company.jobs.build(job_params)
-    @job.status = 'draft'
-    
-    respond_to do |format|
-      if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend('jobs', partial: 'jobs/job', locals: { job: @job }) }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace('job_form', partial: 'jobs/form', locals: { job: @job }) }
+    if current_user.company?
+      @job = current_user.company.jobs.build(job_params)
+      @job.status = 'draft'
+      
+      respond_to do |format|
+        if @job.save
+          format.html { redirect_to @job, notice: 'Job was successfully created.' }
+          format.turbo_stream { render turbo_stream: turbo_stream.prepend('jobs', partial: 'jobs/job', locals: { job: @job }) }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace('job_form', partial: 'jobs/form', locals: { job: @job }) }
+        end
       end
+    else
+      redirect_to new_company_path, alert: 'Please create a company profile first.'
     end
   end
 
@@ -73,9 +80,6 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
   end
 
-  def authorize_job
-    authorize @job
-  end
 
   def job_params
     params.require(:job).permit(

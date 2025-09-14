@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Create Company Profile</h2>
+            <p class="text-muted">Tell us about your company</p>
+          </div>
+
+          <%= form_with model: @company, local: true, html: { class: "needs-validation", novalidate: true } do |form| %>
+            <% if @company.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <%= pluralize(@company.errors.count, "error") %> prohibited this company from being created:
+                <ul class="mb-0 mt-2">
+                  <% @company.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label fw-semibold" %>
+              <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Company Name", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label fw-semibold" %>
+              <%= form.text_area :description, class: "form-control", rows: 4, placeholder: "Tell us about your company...", required: true %>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :website, class: "form-label fw-semibold" %>
+                <%= form.url_field :website, class: "form-control", placeholder: "https://yourcompany.com" %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :logo_url, class: "form-label fw-semibold" %>
+                <%= form.url_field :logo_url, class: "form-control", placeholder: "https://yourcompany.com/logo.png" %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :location, class: "form-label fw-semibold" %>
+                <%= form.text_field :location, class: "form-control", placeholder: "City, State/Country", required: true %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :industry, class: "form-label fw-semibold" %>
+                <%= form.select :industry, options_for_select([
+                  ['Technology', 'Technology'],
+                  ['Healthcare', 'Healthcare'],
+                  ['Finance', 'Finance'],
+                  ['Education', 'Education'],
+                  ['Manufacturing', 'Manufacturing'],
+                  ['Retail', 'Retail'],
+                  ['Other', 'Other']
+                ], @company.industry), { prompt: 'Select Industry' }, { class: "form-select" } %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :size, class: "form-label fw-semibold" %>
+                <%= form.select :size, options_for_select([
+                  ['1-10', '1-10'],
+                  ['11-50', '11-50'],
+                  ['51-200', '51-200'],
+                  ['201-500', '201-500'],
+                  ['501-1000', '501-1000'],
+                  ['1000+', '1000+']
+                ], @company.size), { prompt: 'Select Company Size' }, { class: "form-select" } %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :founded_year, class: "form-label fw-semibold" %>
+                <%= form.number_field :founded_year, class: "form-control", placeholder: "2020", min: 1800, max: Date.current.year %>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit "Create Company Profile", class: "btn btn-primary btn-lg fw-semibold" %>
+              <%= link_to "Cancel", companies_path, class: "btn btn-outline-secondary btn-lg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Bootstrap form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>

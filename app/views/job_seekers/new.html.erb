@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Create Your Profile</h2>
+            <p class="text-muted">Tell us about yourself</p>
+          </div>
+
+          <%= form_with model: @job_seeker, local: true, html: { class: "needs-validation", novalidate: true } do |form| %>
+            <% if @job_seeker.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <%= pluralize(@job_seeker.errors.count, "error") %> prohibited this profile from being created:
+                <ul class="mb-0 mt-2">
+                  <% @job_seeker.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            <% end %>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :first_name, class: "form-label fw-semibold" %>
+                <%= form.text_field :first_name, class: "form-control form-control-lg", placeholder: "First Name", required: true %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :last_name, class: "form-label fw-semibold" %>
+                <%= form.text_field :last_name, class: "form-control form-control-lg", placeholder: "Last Name", required: true %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :phone, class: "form-label fw-semibold" %>
+                <%= form.telephone_field :phone, class: "form-control", placeholder: "+1234567890" %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :location, class: "form-label fw-semibold" %>
+                <%= form.text_field :location, class: "form-control", placeholder: "City, State/Country", required: true %>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :bio, class: "form-label fw-semibold" %>
+              <%= form.text_area :bio, class: "form-control", rows: 4, placeholder: "Tell us about yourself, your experience, and what you're looking for...", required: true %>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :experience_years, class: "form-label fw-semibold" %>
+                <%= form.number_field :experience_years, class: "form-control", placeholder: "5", min: 0, max: 50 %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= form.label :education, class: "form-label fw-semibold" %>
+                <%= form.text_field :education, class: "form-control", placeholder: "Bachelor's in Computer Science" %>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :skills, class: "form-label fw-semibold" %>
+              <%= form.text_field :skills, class: "form-control", placeholder: "Ruby, Rails, JavaScript, React (comma-separated)" %>
+              <div class="form-text">
+                <small class="text-muted">Enter your skills separated by commas</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :resume_url, class: "form-label fw-semibold" %>
+              <%= form.url_field :resume_url, class: "form-control", placeholder: "https://yourwebsite.com/resume.pdf" %>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit "Create Profile", class: "btn btn-primary btn-lg fw-semibold" %>
+              <%= link_to "Cancel", jobs_path, class: "btn btn-outline-secondary btn-lg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Bootstrap form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>

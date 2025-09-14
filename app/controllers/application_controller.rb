@@ -15,9 +15,17 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     case resource.role
     when 'company'
-      companies_path
+      if resource.company.present?
+        companies_path
+      else
+        new_company_path
+      end
     when 'job_seeker'
-      jobs_path
+      if resource.job_seeker.present?
+        jobs_path
+      else
+        new_job_seeker_path
+      end
     when 'admin'
       admin_root_path
     else

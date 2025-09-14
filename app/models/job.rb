@@ -16,7 +16,7 @@ class Job < ApplicationRecord
   validates :salary_max, numericality: { greater_than: 0 }, allow_blank: true
   validates :status, presence: true
 
-  enum employment_type: {
+  enum :employment_type, {
     full_time: 'full_time',
     part_time: 'part_time',
     contract: 'contract',
@@ -24,7 +24,7 @@ class Job < ApplicationRecord
     internship: 'internship'
   }
 
-  enum status: {
+  enum :status, {
     draft: 'draft',
     active: 'active',
     paused: 'paused',
