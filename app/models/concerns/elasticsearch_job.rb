@@ -29,7 +29,6 @@ module ElasticsearchJob
         indexes :employment_type, type: 'keyword'
         indexes :salary_min, type: 'integer'
         indexes :salary_max, type: 'integer'
-        indexes :currency, type: 'keyword'
         indexes :remote, type: 'boolean'
         indexes :status, type: 'keyword'
         indexes :company_id, type: 'integer'
@@ -52,7 +51,6 @@ module ElasticsearchJob
       employment_type: employment_type,
       salary_min: salary_min,
       salary_max: salary_max,
-      currency: currency,
       remote: remote,
       status: status,
       company_id: company_id,
