@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :jobs do
-    resources :applications, only: [:create, :index, :show, :update, :destroy]
+    resources :job_applications, only: [:create, :index, :show, :update, :destroy]
   end
   
   resources :companies
   resources :job_seekers
-  resources :applications, only: [:index, :show, :update, :destroy]
+  resources :job_applications, only: [:index, :show, :update, :destroy]
   
   namespace :api do
     namespace :v1 do
