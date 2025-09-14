@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
+  get "jobs/index"
+  get "jobs/show"
+  get "jobs/new"
+  get "jobs/create"
+  get "jobs/edit"
+  get "jobs/update"
+  get "jobs/destroy"
   devise_for :users
 
   namespace :api do
     namespace :v1 do
+      get "search/jobs"
+      get "search/companies"
+      get "search/job_seekers"
       # Authentication routes
       post 'auth/login', to: 'auth#login'
       post 'auth/register', to: 'auth#register'

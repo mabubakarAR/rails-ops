@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  include ElasticsearchJob
+
   belongs_to :company
   has_many :job_applications, dependent: :destroy
   has_many :job_seekers, through: :job_applications
@@ -35,7 +37,9 @@ class Job < ApplicationRecord
   scope :by_salary_range, ->(min, max) { where(salary_min: min..max) }
   scope :remote, -> { where(remote: true) }
   scope :recent, -> { order(created_at: :desc) }
-  scope :by_company, ->(company_id) { where(company_id: company_id) }
+  after_create :broadcast_job_created
+  after_update :broadcast_job_updated
+  after_destroy :broadcast_job_deleted
 
   def total_applications
     job_applications.count
@@ -69,5 +73,19 @@ class Job < ApplicationRecord
     return false unless active?
     return false if application_deadline_passed?
     !job_applications.exists?(job_seeker: job_seeker)
+  end
+
+  private
+
+  def broadcast_job_created
+    JobBroadcastJob.perform_later(self, 'created')
+  end
+
+  def broadcast_job_updated
+    JobBroadcastJob.perform_later(self, 'updated')
+  end
+
+  def broadcast_job_deleted
+    JobBroadcastJob.perform_later(self, 'deleted')
   end
 end
