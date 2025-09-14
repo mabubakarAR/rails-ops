@@ -23,59 +23,145 @@
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Navbar Styles -->
+    <style>
+      .navbar {
+        backdrop-filter: blur(10px);
+        background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+      }
+      
+      .navbar-brand:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease;
+      }
+      
+      .nav-link {
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        padding: 8px 12px !important;
+      }
+      
+      .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+      
+      .btn-outline-light:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .btn-light:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      @media (max-width: 991.98px) {
+        .navbar-nav {
+          margin-top: 1rem;
+        }
+        
+        .nav-item {
+          margin-bottom: 0.5rem;
+        }
+        
+        .nav-item.me-4 {
+          margin-right: 0 !important;
+          margin-bottom: 1rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <% unless controller_name == 'sessions' || controller_name == 'registrations' %>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg sticky-top">
         <div class="container">
-          <%= link_to "RailsOps", root_path, class: "navbar-brand fw-bold fs-4" %>
+          <!-- Brand -->
+          <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+            <div class="bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+              <i class="fas fa-briefcase text-white"></i>
+            </div>
+            <span class="fw-bold fs-4">RailsOps</span>
+          <% end %>
           
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <!-- Mobile Toggle -->
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
           
+          <!-- Navigation -->
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
               <% if user_signed_in? %>
-                <!-- User Info -->
-                <li class="nav-item me-3">
+                <!-- User Profile Section -->
+                <li class="nav-item me-4">
                   <div class="d-flex align-items-center">
-                    <div class="bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
-                      <i class="fas fa-user text-white"></i>
+                    <div class="bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                      <% if current_user.job_seeker? %>
+                        <i class="fas fa-user text-white"></i>
+                      <% elsif current_user.company? %>
+                        <i class="fas fa-building text-white"></i>
+                      <% else %>
+                        <i class="fas fa-user-shield text-white"></i>
+                      <% end %>
                     </div>
-                    <span class="navbar-text text-white fw-medium">
-                      Welcome, <%= current_user.full_name %>
-                    </span>
+                    <div class="d-flex flex-column">
+                      <span class="navbar-text text-white fw-semibold mb-0" style="font-size: 0.9rem;">
+                        <%= current_user.full_name %>
+                      </span>
+                      <small class="text-white-50" style="font-size: 0.75rem;">
+                        <%= current_user.role.humanize %>
+                      </small>
+                    </div>
                   </div>
                 </li>
                 
                 <!-- Navigation Links -->
-                <li class="nav-item">
-                  <%= link_to "Jobs", jobs_path, class: "nav-link fw-medium" %>
+                <li class="nav-item me-3">
+                  <%= link_to jobs_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                    <i class="fas fa-search me-1"></i>
+                    <span>Jobs</span>
+                  <% end %>
                 </li>
                 
                 <% if current_user.company? %>
                   <% if current_user.company.present? %>
-                    <li class="nav-item">
-                      <%= link_to "My Jobs", jobs_path, class: "nav-link fw-medium" %>
+                    <li class="nav-item me-3">
+                      <%= link_to jobs_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                        <i class="fas fa-briefcase me-1"></i>
+                        <span>My Jobs</span>
+                      <% end %>
                     </li>
-                    <li class="nav-item">
-                      <%= link_to "My Applications", job_applications_path, class: "nav-link fw-medium" %>
+                    <li class="nav-item me-3">
+                      <%= link_to job_applications_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                        <i class="fas fa-file-alt me-1"></i>
+                        <span>Applications</span>
+                      <% end %>
                     </li>
                   <% else %>
-                    <li class="nav-item">
-                      <%= link_to "Create Company Profile", new_company_path, class: "nav-link fw-medium" %>
+                    <li class="nav-item me-3">
+                      <%= link_to new_company_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                        <i class="fas fa-plus-circle me-1"></i>
+                        <span>Create Profile</span>
+                      <% end %>
                     </li>
                   <% end %>
                 <% elsif current_user.job_seeker? %>
                   <% if current_user.job_seeker.present? %>
-                    <li class="nav-item">
-                      <%= link_to "My Applications", job_applications_path, class: "nav-link fw-medium" %>
+                    <li class="nav-item me-3">
+                      <%= link_to job_applications_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                        <i class="fas fa-file-alt me-1"></i>
+                        <span>My Applications</span>
+                      <% end %>
                     </li>
                   <% else %>
-                    <li class="nav-item">
-                      <%= link_to "Create Profile", new_job_seeker_path, class: "nav-link fw-medium" %>
+                    <li class="nav-item me-3">
+                      <%= link_to new_job_seeker_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                        <i class="fas fa-plus-circle me-1"></i>
+                        <span>Create Profile</span>
+                      <% end %>
                     </li>
                   <% end %>
                 <% end %>
@@ -85,17 +171,25 @@
                   <form action="<%= destroy_user_session_path %>" method="post" style="display: inline;">
                     <input type="hidden" name="_method" value="delete">
                     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                    <button type="submit" class="nav-link btn btn-link text-decoration-none border-0 bg-transparent fw-medium" style="color: rgba(255,255,255,.8);">
-                      <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    <button type="submit" class="btn btn-outline-light btn-sm fw-medium d-flex align-items-center" style="border-radius: 20px;">
+                      <i class="fas fa-sign-out-alt me-1"></i>
+                      <span>Logout</span>
                     </button>
                   </form>
                 </li>
               <% else %>
-                <li class="nav-item">
-                  <%= link_to "Login", new_user_session_path, class: "nav-link fw-medium" %>
+                <!-- Guest Navigation -->
+                <li class="nav-item me-3">
+                  <%= link_to new_user_session_path, class: "nav-link fw-medium d-flex align-items-center" do %>
+                    <i class="fas fa-sign-in-alt me-1"></i>
+                    <span>Login</span>
+                  <% end %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Sign Up", new_user_registration_path, class: "nav-link fw-medium" %>
+                  <%= link_to new_user_registration_path, class: "btn btn-light btn-sm fw-medium d-flex align-items-center", style: "border-radius: 20px;" do %>
+                    <i class="fas fa-user-plus me-1"></i>
+                    <span>Sign Up</span>
+                  <% end %>
                 </li>
               <% end %>
             </ul>
