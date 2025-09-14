@@ -5,12 +5,22 @@ class JobApplicationsController < ApplicationController
 
   def index
     if current_user.job_seeker?
-      @job_applications = current_user.job_seeker.job_applications.includes(:job, :job => :company)
+      if current_user.job_seeker.present?
+        @job_applications = current_user.job_seeker.job_applications.includes(:job, :job => :company)
+      else
+        redirect_to new_job_seeker_path, alert: 'Please create your profile first.'
+        return
+      end
     elsif current_user.company?
-      # Get all applications for jobs posted by this company
-      @job_applications = JobApplication.joins(:job)
-                                      .where(jobs: { company_id: current_user.company.id })
-                                      .includes(:job_seeker, :job)
+      if current_user.company.present?
+        # Get all applications for jobs posted by this company
+        @job_applications = JobApplication.joins(:job)
+                                        .where(jobs: { company_id: current_user.company.id })
+                                        .includes(:job_seeker, :job)
+      else
+        redirect_to new_company_path, alert: 'Please create your company profile first.'
+        return
+      end
     else
       @job_applications = JobApplication.includes(:job, :job_seeker, :job => :company)
     end

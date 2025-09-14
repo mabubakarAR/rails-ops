@@ -11,10 +11,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def full_name
-    if job_seeker?
-      job_seeker&.full_name || email
-    elsif company?
-      company&.name || email
+    if job_seeker? && job_seeker.present?
+      job_seeker.full_name || email
+    elsif company? && company.present?
+      company.name || email
     else
       email
     end
