@@ -1,6 +1,6 @@
-# Rails Ops - Job Board Platform
+# Jobify - Job Board Platform
 
-Rails Ops is a comprehensive job board platform built with Ruby on Rails that connects companies with job seekers. It provides a modern, scalable solution for job posting, application management, and talent discovery.
+Jobify is a comprehensive job board platform built with Ruby on Rails that connects companies with job seekers. It provides a modern, scalable solution for job posting, application management, and talent discovery.
 
 ## 🚀 Features
 
@@ -54,8 +54,8 @@ Rails Ops is a comprehensive job board platform built with Ruby on Rails that co
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/rails-ops.git
-cd rails-ops
+git clone https://github.com/your-username/jobify.git
+cd jobify
 ```
 
 ### 2. Install Dependencies
@@ -322,4 +322,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ by the Rails Ops team**
+**Made with ❤️ by the Jobify team**

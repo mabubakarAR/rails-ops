@@ -1,8 +1,8 @@
-# Rails Ops API Documentation
+# Jobify API Documentation
 
 ## Overview
 
-Rails Ops is a comprehensive job board platform that connects companies with job seekers. This API provides endpoints for managing companies, job seekers, jobs, and applications.
+Jobify is a comprehensive job board platform that connects companies with job seekers. This API provides endpoints for managing companies, job seekers, jobs, and applications.
 
 ## Base URL
 
@@ -1025,7 +1025,7 @@ POST /webhooks/application_status_update
 ```ruby
 require 'rails_ops_client'
 
-client = RailsOpsClient.new(
+client = JobifyClient.new(
   api_key: 'your-api-key',
   base_url: 'https://your-domain.com/api/v1'
 )
@@ -1042,9 +1042,9 @@ application = client.applications.create(
 
 ### JavaScript
 ```javascript
-const RailsOpsClient = require('rails-ops-client');
+const JobifyClient = require('jobify-client');
 
-const client = new RailsOpsClient({
+const client = new JobifyClient({
   apiKey: 'your-api-key',
   baseUrl: 'https://your-domain.com/api/v1'
 });
@@ -1061,9 +1061,9 @@ const application = await client.applications.create({
 
 ### Python
 ```python
-from rails_ops_client import RailsOpsClient
+from jobify_client import JobifyClient
 
-client = RailsOpsClient(
+client = JobifyClient(
     api_key='your-api-key',
     base_url='https://your-domain.com/api/v1'
 )
