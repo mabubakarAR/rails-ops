@@ -1,5 +1,5 @@
 class Job < ApplicationRecord
-  include ElasticsearchJob
+  # include ElasticsearchJob  # Disabled until Elasticsearch is properly configured
 
   belongs_to :company
   has_many :job_applications, dependent: :destroy

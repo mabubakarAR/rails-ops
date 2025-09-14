@@ -2,8 +2,15 @@ module ElasticsearchJob
   extend ActiveSupport::Concern
 
   included do
-    include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
+    # Only include Elasticsearch if it's available
+    begin
+      include Elasticsearch::Model
+      include Elasticsearch::Model::Callbacks
+      @elasticsearch_available = true
+    rescue => e
+      Rails.logger.warn "Elasticsearch not available: #{e.message}"
+      @elasticsearch_available = false
+    end
 
     index_name "jobs_#{Rails.env}"
 
