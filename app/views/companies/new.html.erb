@@ -38,15 +38,15 @@
                 <%= form.url_field :website, class: "form-control", placeholder: "https://yourcompany.com" %>
               </div>
               <div class="col-md-6 mb-3">
-                <%= form.label :logo_url, class: "form-label fw-semibold" %>
-                <%= form.url_field :logo_url, class: "form-control", placeholder: "https://yourcompany.com/logo.png" %>
+                <%= form.label :logo, class: "form-label fw-semibold" %>
+                <%= form.url_field :logo, class: "form-control", placeholder: "https://yourcompany.com/logo.png" %>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
-                <%= form.label :location, class: "form-label fw-semibold" %>
-                <%= form.text_field :location, class: "form-control", placeholder: "City, State/Country", required: true %>
+                <%= form.label :headquarters, class: "form-label fw-semibold" %>
+                <%= form.text_field :headquarters, class: "form-control", placeholder: "City, State/Country", required: true %>
               </div>
               <div class="col-md-6 mb-3">
                 <%= form.label :industry, class: "form-label fw-semibold" %>
@@ -66,12 +66,11 @@
               <div class="col-md-6 mb-3">
                 <%= form.label :size, class: "form-label fw-semibold" %>
                 <%= form.select :size, options_for_select([
-                  ['1-10', '1-10'],
-                  ['11-50', '11-50'],
-                  ['51-200', '51-200'],
-                  ['201-500', '201-500'],
-                  ['501-1000', '501-1000'],
-                  ['1000+', '1000+']
+                  ['Startup', 'startup'],
+                  ['Small (1-50)', 'small'],
+                  ['Medium (51-200)', 'medium'],
+                  ['Large (201-1000)', 'large'],
+                  ['Enterprise (1000+)', 'enterprise']
                 ], @company.size), { prompt: 'Select Company Size' }, { class: "form-select" } %>
               </div>
               <div class="col-md-6 mb-3">
