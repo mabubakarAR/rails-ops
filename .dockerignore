@@ -1,48 +1,78 @@
-# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+# Git
+.git
+.gitignore
 
-# Ignore git directory.
-/.git/
-/.gitignore
+# Documentation
+README.md
+*.md
 
-# Ignore bundler config.
-/.bundle
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
 
-# Ignore all environment files (except templates).
-/.env*
-!/.env*.erb
+# Logs
+*.log
+log/*
 
-# Ignore all default key files.
-/config/master.key
-/config/credentials/*.key
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+# Coverage directory used by tools like istanbul
+coverage
 
-# Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/.keep
+# nyc test coverage
+.nyc_output
 
-# Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/.keep
+# Dependency directories
+node_modules/
 
-# Ignore assets.
-/node_modules/
-/app/assets/builds/*
-!/app/assets/builds/.keep
-/public/assets
+# Optional npm cache directory
+.npm
 
-# Ignore CI service files.
-/.github
+# Optional REPL history
+.node_repl_history
 
-# Ignore development files
-/.devcontainer
+# Output of 'npm pack'
+*.tgz
 
-# Ignore Docker-related files
-/.dockerignore
-/Dockerfile*
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Rails specific
+tmp/
+storage/
+public/assets/
+public/packs/
+public/packs-test/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+spec/
+test/
+.rspec
+
+# Development files
+config/database.yml
+config/secrets.yml
+config/credentials.yml.enc
+config/master.key

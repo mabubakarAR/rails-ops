@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-ops-sidekiq
+  labels:
+    app: rails-ops-sidekiq
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rails-ops-sidekiq
+  template:
+    metadata:
+      labels:
+        app: rails-ops-sidekiq
+    spec:
+      containers:
+      - name: rails-ops-sidekiq
+        image: rails-ops:latest
+        command: ["bundle", "exec", "sidekiq"]
+        env:
+        - name: RAILS_ENV
+          value: "production"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: rails-ops-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: rails-ops-secrets
+              key: redis-url
+        - name: ELASTICSEARCH_URL
+          valueFrom:
+            secretKeyRef:
+              name: rails-ops-secrets
+              key: elasticsearch-url
+        - name: RAILS_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rails-ops-secrets
+              key: rails-master-key
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: rails-ops-secrets
+              key: secret-key-base
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
