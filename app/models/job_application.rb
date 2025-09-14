@@ -6,7 +6,7 @@ class JobApplication < ApplicationRecord
   validates :status, presence: true
   validates :job_seeker_id, uniqueness: { scope: :job_id, message: "has already applied for this job" }
 
-  enum status: {
+  enum :status, {
     pending: 'pending',
     reviewed: 'reviewed',
     shortlisted: 'shortlisted',

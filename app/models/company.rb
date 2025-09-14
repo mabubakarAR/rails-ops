@@ -10,7 +10,7 @@ class Company < ApplicationRecord
   validates :size, presence: true
   validates :founded_year, numericality: { greater_than: 1800, less_than_or_equal_to: Date.current.year }, allow_blank: true
 
-  enum size: {
+  enum :size, {
     startup: 'startup',
     small: 'small',
     medium: 'medium',
