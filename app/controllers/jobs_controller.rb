@@ -24,7 +24,7 @@ class JobsController < ApplicationController
   end
 
   def new
-    if current_user.company?
+    if current_user.company? && current_user.company.present?
       @job = current_user.company.jobs.build
     else
       redirect_to new_company_path, alert: 'Please create a company profile first.'
@@ -32,7 +32,7 @@ class JobsController < ApplicationController
   end
 
   def create
-    if current_user.company?
+    if current_user.company? && current_user.company.present?
       @job = current_user.company.jobs.build(job_params)
       @job.status = 'draft'
       

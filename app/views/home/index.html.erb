@@ -3,12 +3,37 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6">
-        <h1 class="display-4 fw-bold mb-4">Find Your Dream Job</h1>
-        <p class="lead mb-4">Connect with top companies and discover opportunities that match your skills and aspirations.</p>
-        <div class="d-flex gap-3">
-          <%= link_to "Find Jobs", new_user_registration_path, class: "btn btn-light btn-lg fw-semibold" %>
-          <%= link_to "Post Jobs", new_user_registration_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
-        </div>
+        <% if user_signed_in? %>
+          <% if current_user.job_seeker? %>
+            <h1 class="display-4 fw-bold mb-4">Find Your Dream Job</h1>
+            <p class="lead mb-4">Discover opportunities that match your skills and aspirations.</p>
+            <div class="d-flex gap-3">
+              <%= link_to "Browse Jobs", jobs_path, class: "btn btn-light btn-lg fw-semibold" %>
+              <%= link_to "My Applications", job_applications_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+            </div>
+          <% elsif current_user.company? %>
+            <h1 class="display-4 fw-bold mb-4">Find Top Talent</h1>
+            <p class="lead mb-4">Connect with skilled professionals and grow your team.</p>
+            <div class="d-flex gap-3">
+              <%= link_to "Post a Job", new_job_path, class: "btn btn-light btn-lg fw-semibold" %>
+              <%= link_to "My Jobs", jobs_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+            </div>
+          <% else %>
+            <h1 class="display-4 fw-bold mb-4">Welcome to RailsOps</h1>
+            <p class="lead mb-4">Your gateway to career opportunities and talent acquisition.</p>
+            <div class="d-flex gap-3">
+              <%= link_to "Browse Jobs", jobs_path, class: "btn btn-light btn-lg fw-semibold" %>
+              <%= link_to "Post Jobs", new_job_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+            </div>
+          <% end %>
+        <% else %>
+          <h1 class="display-4 fw-bold mb-4">Find Your Dream Job</h1>
+          <p class="lead mb-4">Connect with top companies and discover opportunities that match your skills and aspirations.</p>
+          <div class="d-flex gap-3">
+            <%= link_to "Find Jobs", new_user_registration_path, class: "btn btn-light btn-lg fw-semibold" %>
+            <%= link_to "Post Jobs", new_user_registration_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-6 text-center">
         <i class="fas fa-briefcase fa-10x opacity-75"></i>

@@ -54,7 +54,7 @@
               <form action="<%= destroy_user_session_path %>" method="post" style="display: inline;">
                 <input type="hidden" name="_method" value="delete">
                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                <button type="submit" class="btn btn-link nav-link text-decoration-none p-0 border-0 bg-transparent">Logout</button>
+                <button type="submit" class="btn btn-link nav-link text-decoration-none p-0 border-0 bg-transparent" style="color: rgba(255,255,255,.55);">Logout</button>
               </form>
             <% else %>
               <%= link_to "Login", new_user_session_path, class: "nav-link" %>

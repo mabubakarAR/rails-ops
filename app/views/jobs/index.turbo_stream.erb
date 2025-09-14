@@ -10,7 +10,7 @@
           <%= form.text_field :search, placeholder: "Search jobs...", class: "form-control", value: params[:search] %>
         </div>
         <div class="col-md-3">
-          <%= form.select :location, options_for_select([["All Locations", ""], ["Remote", "Remote"], ["New York", "New York"], ["San Francisco", "San Francisco"], ["London", "London"]], params[:location]), {}, { class: "form-select" } %>
+          <%= form.text_field :location, placeholder: "Enter location...", class: "form-control", value: params[:location] %>
         </div>
         <div class="col-md-3">
           <%= form.select :employment_type, options_for_select([["All Types", ""], ["Full Time", "full_time"], ["Part Time", "part_time"], ["Contract", "contract"], ["Freelance", "freelance"]], params[:employment_type]), {}, { class: "form-select" } %>
