@@ -1,0 +1,179 @@
+<!-- Hero Section -->
+<div class="hero-section bg-primary text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Find Your Dream Job</h1>
+        <p class="lead mb-4">Connect with top companies and discover opportunities that match your skills and aspirations.</p>
+        <div class="d-flex gap-3">
+          <%= link_to "Find Jobs", new_user_registration_path, class: "btn btn-light btn-lg fw-semibold" %>
+          <%= link_to "Post Jobs", new_user_registration_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <i class="fas fa-briefcase fa-10x opacity-75"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3">
+        <div class="card border-0 bg-white shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-building fa-3x text-primary mb-3"></i>
+            <h3 class="fw-bold"><%= @companies_count %></h3>
+            <p class="text-muted">Companies</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 bg-white shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-briefcase fa-3x text-success mb-3"></i>
+            <h3 class="fw-bold"><%= @jobs_count %></h3>
+            <p class="text-muted">Active Jobs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 bg-white shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-users fa-3x text-info mb-3"></i>
+            <h3 class="fw-bold"><%= @job_seekers_count %></h3>
+            <p class="text-muted">Job Seekers</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 bg-white shadow-sm">
+          <div class="card-body">
+            <i class="fas fa-handshake fa-3x text-warning mb-3"></i>
+            <h3 class="fw-bold">1000+</h3>
+            <p class="text-muted">Successful Matches</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-5">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-12">
+        <h2 class="fw-bold">Why Choose RailsOps?</h2>
+        <p class="lead text-muted">We make job hunting and hiring simple, efficient, and effective.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="fas fa-search fa-2x"></i>
+          </div>
+          <h4 class="fw-bold">Smart Search</h4>
+          <p class="text-muted">Find jobs that match your skills and preferences with our advanced search technology.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="fas fa-bolt fa-2x"></i>
+          </div>
+          <h4 class="fw-bold">Real-time Updates</h4>
+          <p class="text-muted">Get instant notifications about new jobs, application status, and important updates.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="text-center">
+          <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="fas fa-shield-alt fa-2x"></i>
+          </div>
+          <h4 class="fw-bold">Secure Platform</h4>
+          <p class="text-muted">Your data is protected with enterprise-grade security and privacy measures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Jobs Section -->
+<% if @recent_jobs.any? %>
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="fw-bold text-center">Latest Job Opportunities</h2>
+        <p class="text-muted text-center">Discover the newest positions from top companies</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <% @recent_jobs.each do |job| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <% if job.company&.logo_url.present? %>
+                  <img src="<%= job.company.logo_url %>" alt="<%= job.company.name %>" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <% else %>
+                  <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-building"></i>
+                  </div>
+                <% end %>
+                <div>
+                  <h6 class="fw-bold mb-0"><%= job.company&.name %></h6>
+                  <small class="text-muted"><%= job.location %></small>
+                </div>
+              </div>
+              
+              <h5 class="card-title fw-bold"><%= job.title %></h5>
+              <p class="card-text text-muted"><%= truncate(job.description, length: 100) %></p>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <% if job.salary_min && job.salary_max %>
+                    <span class="badge bg-success">$<%= number_with_delimiter(job.salary_min) %> - $<%= number_with_delimiter(job.salary_max) %></span>
+                  <% end %>
+                  <% if job.remote %>
+                    <span class="badge bg-info">Remote</span>
+                  <% end %>
+                </div>
+                <small class="text-muted"><%= time_ago_in_words(job.created_at) %> ago</small>
+              </div>
+            </div>
+            
+            <div class="card-footer bg-transparent">
+              <%= link_to "View Job", job_path(job), class: "btn btn-primary w-100" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="text-center mt-4">
+      <%= link_to "View All Jobs", new_user_registration_path, class: "btn btn-outline-primary btn-lg" %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<!-- CTA Section -->
+<div class="py-5 bg-primary text-white">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Ready to Get Started?</h2>
+    <p class="lead mb-4">Join thousands of professionals who have found their dream jobs through RailsOps.</p>
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to "Sign Up as Job Seeker", new_user_registration_path, class: "btn btn-light btn-lg fw-semibold" %>
+      <%= link_to "Sign Up as Company", new_user_registration_path, class: "btn btn-outline-light btn-lg fw-semibold" %>
+    </div>
+  </div>
+</div>

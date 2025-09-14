@@ -1,0 +1,184 @@
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Left side - Branding -->
+    <div class="col-lg-6 d-none d-lg-block bg-primary text-white d-flex align-items-center justify-content-center">
+      <div class="text-center">
+        <h1 class="display-4 fw-bold mb-4">Join RailsOps</h1>
+        <p class="lead mb-4">Start your journey today</p>
+        <div class="row text-center">
+          <div class="col-4">
+            <i class="fas fa-rocket fa-3x mb-3"></i>
+            <h5>Quick Setup</h5>
+            <p class="small">Get started in minutes</p>
+          </div>
+          <div class="col-4">
+            <i class="fas fa-shield-alt fa-3x mb-3"></i>
+            <h5>Secure</h5>
+            <p class="small">Your data is protected</p>
+          </div>
+          <div class="col-4">
+            <i class="fas fa-heart fa-3x mb-3"></i>
+            <h5>Free</h5>
+            <p class="small">No hidden costs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side - Signup Form -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+      <div class="w-100" style="max-width: 400px;">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-primary">Create Account</h2>
+          <p class="text-muted">Choose your account type</p>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+          <% if resource.errors.any? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <%= pluralize(resource.errors.count, "error") %> prohibited this account from being created:
+              <ul class="mb-0 mt-2">
+                <% resource.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <!-- Account Type Selection -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">I am a:</label>
+            <div class="row g-2">
+              <div class="col-6">
+                <div class="form-check">
+                  <%= f.radio_button :role, 'company', class: "form-check-input", id: "role_company" %>
+                  <%= f.label :role, "Company", value: 'company', class: "form-check-label w-100 text-center p-3 border rounded" do %>
+                    <i class="fas fa-building fa-2x d-block mb-2"></i>
+                    <strong>Company</strong>
+                    <small class="d-block text-muted">Hiring talent</small>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-check">
+                  <%= f.radio_button :role, 'job_seeker', class: "form-check-input", id: "role_job_seeker" %>
+                  <%= f.label :role, "Job Seeker", value: 'job_seeker', class: "form-check-label w-100 text-center p-3 border rounded" do %>
+                    <i class="fas fa-user fa-2x d-block mb-2"></i>
+                    <strong>Job Seeker</strong>
+                    <small class="d-block text-muted">Looking for jobs</small>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :email, class: "form-label fw-semibold" %>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-envelope text-muted"></i>
+              </span>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+                  class: "form-control form-control-lg", 
+                  placeholder: "Enter your email",
+                  required: true %>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password, class: "form-label fw-semibold" %>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-lock text-muted"></i>
+              </span>
+              <%= f.password_field :password, autocomplete: "new-password", 
+                  class: "form-control form-control-lg", 
+                  placeholder: "Create a password",
+                  required: true,
+                  minlength: 6 %>
+            </div>
+            <div class="form-text">
+              <small class="text-muted">Password must be at least 6 characters long</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password_confirmation, class: "form-label fw-semibold" %>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-lock text-muted"></i>
+              </span>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", 
+                  class: "form-control form-control-lg", 
+                  placeholder: "Confirm your password",
+                  required: true,
+                  minlength: 6 %>
+            </div>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="terms" required>
+            <label class="form-check-label" for="terms">
+              I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> 
+              and <a href="#" class="text-decoration-none">Privacy Policy</a>
+            </label>
+          </div>
+
+          <div class="d-grid mb-3">
+            <%= f.submit "Create Account", class: "btn btn-primary btn-lg fw-semibold" %>
+          </div>
+        <% end %>
+
+        <div class="text-center">
+          <p class="text-muted mb-3">Already have an account?</p>
+          <%= link_to "Sign In", new_user_session_path, 
+              class: "btn btn-outline-primary btn-lg fw-semibold w-100" %>
+        </div>
+
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            By creating an account, you agree to our terms and conditions.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Bootstrap form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+// Role selection styling
+document.addEventListener('DOMContentLoaded', function() {
+  const roleInputs = document.querySelectorAll('input[name="user[role]"]');
+  const roleLabels = document.querySelectorAll('label[for^="role_"]');
+  
+  roleInputs.forEach(function(input) {
+    input.addEventListener('change', function() {
+      roleLabels.forEach(function(label) {
+        label.classList.remove('border-primary', 'bg-light');
+        if (label.querySelector('input').checked) {
+          label.classList.add('border-primary', 'bg-light');
+        }
+      });
+    });
+  });
+});
+</script>

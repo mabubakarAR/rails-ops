@@ -1,0 +1,124 @@
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Left side - Branding -->
+    <div class="col-lg-6 d-none d-lg-block bg-primary text-white d-flex align-items-center justify-content-center">
+      <div class="text-center">
+        <h1 class="display-4 fw-bold mb-4">RailsOps</h1>
+        <p class="lead mb-4">Connect with your next opportunity</p>
+        <div class="row text-center">
+          <div class="col-4">
+            <i class="fas fa-building fa-3x mb-3"></i>
+            <h5>Companies</h5>
+            <p class="small">Find the best talent</p>
+          </div>
+          <div class="col-4">
+            <i class="fas fa-users fa-3x mb-3"></i>
+            <h5>Job Seekers</h5>
+            <p class="small">Discover your dream job</p>
+          </div>
+          <div class="col-4">
+            <i class="fas fa-handshake fa-3x mb-3"></i>
+            <h5>Connections</h5>
+            <p class="small">Build meaningful careers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side - Login Form -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+      <div class="w-100" style="max-width: 400px;">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-primary">Welcome Back</h2>
+          <p class="text-muted">Sign in to your account</p>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+          <% if alert %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <%= alert %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :email, class: "form-label fw-semibold" %>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-envelope text-muted"></i>
+              </span>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+                  class: "form-control form-control-lg", 
+                  placeholder: "Enter your email",
+                  required: true %>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password, class: "form-label fw-semibold" %>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-lock text-muted"></i>
+              </span>
+              <%= f.password_field :password, autocomplete: "current-password", 
+                  class: "form-control form-control-lg", 
+                  placeholder: "Enter your password",
+                  required: true %>
+            </div>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="mb-3 form-check">
+              <%= f.check_box :remember_me, class: "form-check-input" %>
+              <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
+            </div>
+          <% end %>
+
+          <div class="d-grid mb-3">
+            <%= f.submit "Sign In", class: "btn btn-primary btn-lg fw-semibold" %>
+          </div>
+        <% end %>
+
+        <div class="text-center">
+          <p class="text-muted mb-3">Don't have an account?</p>
+          <%= link_to "Create Account", new_user_registration_path, 
+              class: "btn btn-outline-primary btn-lg fw-semibold w-100 mb-3" %>
+          
+          <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+            <%= link_to "Forgot your password?", new_password_path(resource_name), 
+                class: "text-decoration-none" %>
+          <% end %>
+        </div>
+
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            By signing in, you agree to our 
+            <a href="#" class="text-decoration-none">Terms of Service</a> 
+            and 
+            <a href="#" class="text-decoration-none">Privacy Policy</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Bootstrap form validation
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>

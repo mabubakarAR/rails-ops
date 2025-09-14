@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
-  get "jobs/index"
-  get "jobs/show"
-  get "jobs/new"
-  get "jobs/create"
-  get "jobs/edit"
-  get "jobs/update"
-  get "jobs/destroy"
+  root 'home#index'
+  
   devise_for :users
-
+  
+  resources :jobs do
+    resources :applications, only: [:create, :index, :show, :update, :destroy]
+  end
+  
+  resources :companies
+  resources :job_seekers
+  resources :applications, only: [:index, :show, :update, :destroy]
+  
   namespace :api do
     namespace :v1 do
       get "search/jobs"
@@ -78,7 +81,4 @@ Rails.application.routes.draw do
   # PWA routes
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Root route
-  root "api/v1/jobs#index"
 end
