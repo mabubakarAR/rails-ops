@@ -1,0 +1,15 @@
+HTTP/1.1 303 See Other
+x-frame-options: SAMEORIGIN
+x-xss-protection: 0
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+location: http://localhost:3000/job_seekers/new
+content-type: text/html; charset=utf-8
+cache-control: no-cache
+set-cookie: _rails_ops_session=r7J5nVzLhrKuSczDBAmXzu4hqY4LXc18mypTsPEO4P5KYypNuYZQKHjqPJKFVhd7cRG%2BsUj0WVqhkc1LSPnDKFS%2Bg%2FfOKnBOBrO%2BkiKUO%2BAaa0nRMBW03oG8ZT25XY3UcUk2ggHAyPkdABCaNtKB6fzVt9e6hy%2FrUXbF1c4e6ngRk8%2FC9IwoamWXuMwcrXNlyDRQWGxaWrNSaFxTwQglsvJZjES72JnQvHT0q5wQ8TDSLzPOAmlyoDW3TuhAcaHnhKSca73L14ivexCgC1or31HeJfvxfUaPbTH02C8eI2pB007tJHlLWGGozUtD%2Fpb14npwMz1HMK50wZlwXTPUUJ6J1y%2FauWSlsOwMhmVmQYPqwEXmEwnaCKHLxaGk7oLPJDpC15eVOY%2BHutFLX0FgzGcyhnJjwA%3D%3D--%2FtJ5jkPPsTF86SOE--QpLN0rcpE87xT0Agja1BBg%3D%3D; path=/; httponly; samesite=lax
+x-request-id: 57a6fd51-f003-4c94-8f7d-0bcdba1551f1
+x-runtime: 0.261230
+server-timing: start_processing.action_controller;dur=0.01, sql.active_record;dur=0.43, instantiation.active_record;dur=0.03, redirect_to.action_controller;dur=0.10, process_action.action_controller;dur=254.47
+Content-Length: 0
+

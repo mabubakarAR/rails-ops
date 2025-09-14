@@ -49,28 +49,14 @@
               <%= form.text_area :bio, class: "form-control", rows: 4, placeholder: "Tell us about yourself, your experience, and what you're looking for...", required: true %>
             </div>
 
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <%= form.label :experience_years, class: "form-label fw-semibold" %>
-                <%= form.number_field :experience_years, class: "form-control", placeholder: "5", min: 0, max: 50 %>
-              </div>
-              <div class="col-md-6 mb-3">
-                <%= form.label :education, class: "form-label fw-semibold" %>
-                <%= form.text_field :education, class: "form-control", placeholder: "Bachelor's in Computer Science" %>
-              </div>
+            <div class="mb-3">
+              <%= form.label :experience_years, class: "form-label fw-semibold" %>
+              <%= form.number_field :experience_years, class: "form-control", placeholder: "5", min: 0, max: 50 %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :skills, class: "form-label fw-semibold" %>
-              <%= form.text_field :skills, class: "form-control", placeholder: "Ruby, Rails, JavaScript, React (comma-separated)" %>
-              <div class="form-text">
-                <small class="text-muted">Enter your skills separated by commas</small>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <%= form.label :resume_url, class: "form-label fw-semibold" %>
-              <%= form.url_field :resume_url, class: "form-control", placeholder: "https://yourwebsite.com/resume.pdf" %>
+              <%= form.label :resume, class: "form-label fw-semibold" %>
+              <%= form.url_field :resume, class: "form-control", placeholder: "https://yourwebsite.com/resume.pdf" %>
             </div>
 
             <div class="d-grid gap-2">

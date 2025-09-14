@@ -69,7 +69,7 @@ class JobSeekersController < ApplicationController
   def job_seeker_params
     params.require(:job_seeker).permit(
       :first_name, :last_name, :phone, :location, :bio, 
-      :experience_years, :education, :resume_url, skills: []
+      :experience_years, :resume
     )
   end
 end
